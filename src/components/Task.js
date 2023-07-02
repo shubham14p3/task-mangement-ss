@@ -36,11 +36,11 @@ const CustomTask = ({
           <Typography variant="body1">{priority}</Typography>
         </TableCell>
       )}
-      <TableCell style={tableDataStyle}>
+      {/* <TableCell style={tableDataStyle}>
         <Button variant="contained" color="primary" onClick={handleEdit}>
           Edit
         </Button>
-      </TableCell>
+      </TableCell> */}
       <TableCell style={tableDataStyle}>
         <Button variant="contained" color="secondary" onClick={handleDelete}>
           Delete
