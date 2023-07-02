@@ -3,8 +3,8 @@ import { Modal, Typography, Button } from '@mui/material';
 
 const CustomModal = ({ message, onConfirm, onCancel }) => {
   return (
-    <Modal open={true} onClose={onCancel}>
-      <div className="modal">
+    <Modal open={true} onClose={onCancel} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="modal" style={{ backgroundColor: 'yellow', padding: '20px' }}>
         <div className="modal-content">
           <Typography variant="body1" gutterBottom>
             {message}

@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Modal from "./Modal";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Typography, TextField, TextareaAutosize, Select, MenuItem, Button } from '@mui/material';
+import Modal from './Modal';
 
 const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [unsavedChanges, setUnsavedChanges] = useState(false);
   const [task, setTask] = useState({
-    title: "",
-    description: "",
-    priority: "Low",
+    title: '',
+    description: '',
+    priority: 'Low',
   });
   const [errors, setErrors] = useState({});
   const [saveDisabled, setSaveDisabled] = useState(true);
@@ -18,13 +19,13 @@ const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
     const handleBeforeUnload = (event) => {
       if (unsavedChanges) {
         event.preventDefault();
-        event.returnValue = ""; // For Chrome compatibility
+        event.returnValue = ''; // For Chrome compatibility
       }
     };
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [unsavedChanges]);
 
@@ -32,7 +33,7 @@ const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
     if (unsavedChanges) {
       setShowModal(true);
     } else {
-      navigate("/");
+      navigate('/');
     }
   };
 
@@ -55,11 +56,11 @@ const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
     let errors = {};
 
     if (!title.trim()) {
-      errors.title = "Title is required.";
+      errors.title = 'Title is required.';
     }
 
     if (!description.trim()) {
-      errors.description = "Description is required.";
+      errors.description = 'Description is required.';
     }
 
     setErrors(errors);
@@ -81,7 +82,7 @@ const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
 
   const handleConfirm = () => {
     setShowModal(false);
-    navigate("/");
+    navigate('/');
   };
 
   const handleCancelModal = () => {
@@ -89,21 +90,14 @@ const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          backgroundColor: "#17a2b8",
-          padding: "10px",
-          marginBottom: "20px",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        <h5>Task Management System</h5>
+    <div className='main-container-createtask'>
+      <div style={{ backgroundColor: '#17a2b8', padding: '10px', marginBottom: '20px', color: 'white' }}>
+        <Typography variant="h5">Task Management System</Typography>
       </div>
-      <div style={{ marginBottom: "10px" }}>
+      <div style={{ marginBottom: '10px' }}>
         <label>Task Title:</label>
-        <input
+        <br/>
+        <TextField
           type="text"
           name="title"
           value={task.title}
@@ -111,50 +105,41 @@ const CreateTaskPage = ({ handleSaveTask, handleCancel }) => {
           maxLength={100}
           pattern="[a-zA-Z0-9\s]+"
           required
-          style={{ width: "30%", padding: "5px" }}
+          style={{ width: '30%' }}
         />
       </div>
       {errors.title && <p>{errors.title}</p>}
-      <div style={{ marginBottom: "10px" }}>
+      <div style={{ marginBottom: '10px' }}>
         <label>Task Description:</label>
-        <textarea
+        <br/>
+        <TextareaAutosize
           name="description"
           value={task.description}
           onChange={handleInputChange}
           maxLength={500}
-          rows="2"
-          cols="30"
+          rowsMin={2}
           required
-          style={{ width: "30%", padding: "5px" }}
-        ></textarea>
+          style={{ width: '30%' }}
+        />
       </div>
       {errors.description && <p>{errors.description}</p>}
-      <div style={{ marginBottom: "10px" }}>
-        <label>Task Priority:</label>
-        <select
-          name="priority"
-          value={task.priority}
-          onChange={handleInputChange}
-          style={{ width: "30%", padding: "5px" }}
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
+      <div style={{ marginBottom: '10px' }}>
+        <label>Task Priority:</label> <br/>
+        <Select name="priority" value={task.priority} onChange={handleInputChange} style={{ width: '30%' }}>
+          <MenuItem value="Low">Low</MenuItem>
+          <MenuItem value="Medium">Medium</MenuItem>
+          <MenuItem value="High">High</MenuItem>
+        </Select>
       </div>
-      <div>
-        <button
-          onClick={handleSave}
-          disabled={saveDisabled}
-          className="btn btn-primary my-2"
-        >
+      <div className='create-tab-button'>
+        <Button variant="contained" color="primary" onClick={handleSave} disabled={saveDisabled}>
           Save
-        </button>
-        <button onClick={handleCancelClick} className="btn btn-secondary">
+        </Button>
+        <Button variant="contained" color="secondary" onClick={handleCancelClick}>
           Cancel
-        </button>
+        </Button>
       </div>
-      <button onClick={handleCancelClick}>Home</button>
+      <Button onClick={handleCancelClick}>Home</Button>
       {showModal && (
         <Modal
           message="If you leave this page, all your changes will be lost. Do you want to continue?"

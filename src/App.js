@@ -69,11 +69,8 @@ const App = () => {
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" className="navbar">
         <Toolbar>
-          <Button component={Link} to="/" color="inherit">
-            Home
-          </Button>
           <Button onClick={handleCreateTask} color="inherit">
             Create Task
           </Button>

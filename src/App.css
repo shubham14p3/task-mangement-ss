@@ -1,4 +1,4 @@
-.task-container{
+.task-container {
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -6,6 +6,27 @@
   height: 100%;
 }
 
-.task-container-break{
+.navbar {
+  /* align-items: center; */
+}
+.task-container-break {
   padding: 20px;
+}
+.create-tab-button {
+  padding: 20px;
+  display: grid;
+}
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+.modal-content {
+  padding: 30px;
+  text-transform: capitalize;
+}
+
+.main-container-createtask{
+  text-align: center;
+  padding: 50px;
 }
